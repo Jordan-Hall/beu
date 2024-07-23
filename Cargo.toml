@@ -1,0 +1,30 @@
+[workspace]
+members = ["beu/app", "beu/server", "beu/front"]
+resolver = "2"
+
+[workspace.dependencies]
+leptos = { version = "0.6", features = ["nightly", "experimental-islands"] }
+
+leptos_actix = { version = "0.6", features = ["experimental-islands"] }
+tokio = { version = "1" }
+wasm-bindgen = "0.2"
+
+[[workspace.metadata.leptos]]
+name = "beu"
+bin-package = "server"
+lib-package = "front"
+assets-dir = "beu/assets"
+style-file = "beu/css/main.scss"
+site-root = "target/site/beu"
+lib-profile-release = "wasm-release"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+
+[profile.wasm-release]
+inherits = "release"
+codegen-units = 1
+lto = true
+opt-level = 'z'
